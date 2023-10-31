@@ -9,7 +9,7 @@ val mapaGentilicios =  mutableMapOf<String,String>(
     "Cuenca" to "Conquense",
     "Toledo" to "Toledano",
     "Cádiz" to "Gaditano",
-    "Malloraca" to "Mallorquines",
+    "Mallorca" to "Mallorquines",
     "Menorca" to "Menorquines",
     "Ibiza" to "Ibicencos",
     "Fromentera" to "Formenterense",

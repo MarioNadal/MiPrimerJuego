@@ -1,4 +1,4 @@
-package com.iessanalberto.dam2.juegodepreguntas3
+package com.iessanalberto.dam2.miprimerjuego
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,14 +11,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -63,6 +70,7 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun BodyContent() {
+    var mostrarAlertDialog by remember { mutableStateOf(false)}
     var numPartida by remember { mutableStateOf(0)}
     var puntuacion by remember { mutableStateOf(0)}
     Scaffold(
@@ -72,19 +80,34 @@ fun BodyContent() {
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 titleContentColor = MaterialTheme.colorScheme.primary
             ))
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = { mostrarAlertDialog = true}) {
+                Icon(imageVector = Icons.Filled.Refresh, contentDescription = "Refresh")
+            }
         }
     )
     {
         //Variables
         //Context es usado para los Toast
-        var context = LocalContext.current
+        val context = LocalContext.current
         var capital by remember {mutableStateOf("")}
         Column(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally)
         {
+            if(mostrarAlertDialog){
+                AlertDialog(
+                    title = { Text(text = "Juego nuevo")},
+                    text = { Text(text = "¿Estás seguro de que quieres volver a jugar?")} ,
+                    //Para cuando clickes fuera
+                    onDismissRequest = { mostrarAlertDialog = false },
+                    confirmButton = { TextButton(onClick = { mostrarAlertDialog=false }) {
+                        Text(text = "SI")
+                    } })
+            }
             Image(
-                painter = painterResource(id = R.drawable.interrogante),
+                painter = painterResource(id = R.drawable.mapaprov),
                 contentDescription = "Interrogante",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
